@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace LottieFiles.IO
+namespace LottieFiles.DotLottie
 {
     internal static class Options
     {
