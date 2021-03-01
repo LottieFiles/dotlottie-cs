@@ -1,4 +1,4 @@
-﻿//using Windows.Storage.Streams;
+﻿using System;
 using LottieFiles.DotLottie;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace LottieFiles.IO
 {
+    [Obsolete("", true)]
     public class DotLottie
     {
         private DotLottie()
@@ -43,10 +44,9 @@ namespace LottieFiles.IO
 
             if (manifestEntry != null)
             {
-                using (var reader = new StreamReader(manifestEntry.Open()))
+                using (var stream = manifestEntry.Open())
                 {
-                    var text = reader.ReadToEnd();
-                    var manifest = JsonSerializer.Deserialize<Manifest>(text, Options.JsonSerializerOptions);
+                    var manifest = await JsonSerializer.DeserializeAsync<Manifest>(stream, Options.JsonSerializerOptions);
                     dotLottie.Manifest = manifest;
                 }
             }

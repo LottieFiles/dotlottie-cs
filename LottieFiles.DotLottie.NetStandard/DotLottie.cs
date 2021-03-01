@@ -19,14 +19,6 @@ namespace LottieFiles.IO
 
         }
 
-        //manifest
-        //animations
-        //images
-        //fonts
-        //js
-        //resources
-        //previews
-
         //
         public Manifest Manifest { get; private set; }
         public Dictionary<string, MemoryStream> Animations { get; private set; } = new Dictionary<string, MemoryStream>();
@@ -42,7 +34,7 @@ namespace LottieFiles.IO
 
         public Dictionary<string, byte[]> Images { get; private set; } = new Dictionary<string, byte[]>();
 
-        public static async Task<DotLottie> Open(Stream fileStream)
+        public static async Task<DotLottie> OpenAsync(Stream fileStream)
         {
             var dotLottie = new DotLottie();
 
@@ -54,10 +46,9 @@ namespace LottieFiles.IO
 
             if (manifestEntry != null)
             {
-                using (var reader = new StreamReader(manifestEntry.Open()))
+                using (var stream = manifestEntry.Open())
                 {
-                    var text = reader.ReadToEnd();
-                    var manifest = JsonSerializer.Deserialize<Manifest>(text, Options.JsonSerializerOptions);
+                    var manifest = await JsonSerializer.DeserializeAsync<Manifest>(stream, Options.JsonSerializerOptions);
                     dotLottie.Manifest = manifest;
                 }
             }
