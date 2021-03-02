@@ -1,0 +1,22 @@
+{
+  "name": "@lottiefiles/dotlottie-cs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
+    "@lottiefiles/semantic-release-nuget": "1.0.0",
+    "@semantic-release/changelog": "5.0.1",
+    "@semantic-release/git": "9.0.0",
+    "husky": "4.3.0",
+    "semantic-release": "17.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
