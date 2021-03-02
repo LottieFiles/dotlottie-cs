@@ -8,6 +8,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>LottieFiles.IO</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

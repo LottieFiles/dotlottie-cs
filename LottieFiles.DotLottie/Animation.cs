@@ -1,4 +1,4 @@
-﻿namespace LottieFiles.DotLottie
+﻿namespace LottieFiles.IO
 {
     public class Animation
     {

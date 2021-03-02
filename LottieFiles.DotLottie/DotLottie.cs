@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace LottieFiles.DotLottie
+namespace LottieFiles.IO
 {
     public class DotLottie
     {

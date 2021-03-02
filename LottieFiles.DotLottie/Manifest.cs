@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LottieFiles.DotLottie
+namespace LottieFiles.IO
 {
     public class Manifest
     {

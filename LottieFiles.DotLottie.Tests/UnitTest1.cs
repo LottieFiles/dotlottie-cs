@@ -2,7 +2,7 @@ using System.IO;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace LottieFiles.DotLottie.Tests
+namespace LottieFiles.IO.Tests
 {
     public class Tests
     {
