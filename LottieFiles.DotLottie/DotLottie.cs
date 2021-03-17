@@ -49,6 +49,39 @@ namespace LottieFiles.IO
                 }
             }
 
+            ExtractAnimations(dotLottie, animationEntries);
+
+            return dotLottie;
+        }
+
+        public static DotLottie Open(Stream fileStream)
+        {
+            var dotLottie = new DotLottie();
+
+            var archive = new ZipArchive(fileStream, ZipArchiveMode.Read, true);
+
+            var manifestEntry = archive.GetEntry(Consts.Manifest);
+            var animationEntries = archive.Entries.Where(x => x.FullName.StartsWith(Consts.Animations));
+            var imageEntries = archive.Entries.Where(x => x.FullName.StartsWith(Consts.Images));
+
+            if (manifestEntry != null)
+            {
+                using (var stream = manifestEntry.Open())
+                using (StreamReader streamReader = new StreamReader(stream))
+                {
+                    var json = streamReader.ReadToEnd();
+                    var manifest = JsonSerializer.Deserialize<Manifest>(json, Options.JsonSerializerOptions);
+                    dotLottie.Manifest = manifest;
+                }                
+            }
+
+            ExtractAnimations(dotLottie, animationEntries);
+
+            return dotLottie;
+        }
+
+        private static void ExtractAnimations(DotLottie dotLottie, IEnumerable<ZipArchiveEntry> animationEntries)
+        {
             foreach (var animationEntry in animationEntries)
             {
                 using (var stream = animationEntry.Open())
@@ -61,8 +94,6 @@ namespace LottieFiles.IO
                     dotLottie.Animations.Add(animationEntry.Name, ms);
                 }
             }
-
-            return dotLottie;
         }
     }
 }
