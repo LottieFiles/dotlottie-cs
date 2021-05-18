@@ -20,6 +20,9 @@
     <None Update="Lotties\animation-external-image.lottie">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Lotties\animation-inline-image.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Lotties\animation-inline-image.lottie">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
