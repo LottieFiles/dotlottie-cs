@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -94,15 +95,98 @@ namespace LottieFiles.IO
             return dotLottie;
         }
 
-        public void AddAnimation(string id, bool loop, float speed, string themeColor, string json)
+        /// <summary>
+        /// Download and open a valid dotlottie Uri synchronously
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns>DotLottie object model</returns>
+        public static DotLottie Open(Uri uri)
         {
-            
+            if (!uri.ToString().EndsWith(".lottie"))
+                throw new ArgumentException("File must be a .lottie");
+
+            var openAsyncTask = Task.Run(() => OpenAsync(uri));
+            return openAsyncTask.Result;
         }
-        
-        //AddImage
+
+        /// <summary>
+        /// Download and open a valid dotlottie Uri asynchronously
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns>DotLottie object model</returns>
+        public static async Task<DotLottie> OpenAsync(Uri uri)
+        {
+            if (!uri.ToString().EndsWith(".lottie"))
+                throw new ArgumentException("File must be a .lottie");
+
+            using (var client = new HttpClient())
+            {
+                //todo: there's an async downloaddata but it's a bit more tricky to use
+                var data = await client.GetByteArrayAsync(uri);
+                MemoryStream stream = new MemoryStream(data);
+                return await OpenAsync(stream);
+            }
+        }
+
+        public void AddAnimation(string fileName, bool loop, float speed, string themeColor, string json)
+        {
+            var fileExtension = Path.GetExtension(fileName);
+            var nakedFileName = Path.GetFileNameWithoutExtension(fileName);
+            
+            Manifest.Animations.Add(new Animation
+            {
+                Id = nakedFileName,
+                Loop = loop,
+                Speed = speed,
+                ThemeColor = themeColor
+            });
+
+            var ms = new MemoryStream();
+            using (var sw = new StreamWriter(ms, Encoding.UTF8, 2048, true))
+            {
+                sw.Write(json);
+                sw.Flush();
+            }
+            ms.Position = 0;
+
+            Animations.Add(fileName, ms);
+        }
+
+        private void ConvertInlineAssetToExternal(string animationId, string assetId)
+        {
+            throw new NotImplementedException();
+
+            if (!Animations.TryGetValue(animationId, out MemoryStream ms))
+            {
+                throw new ArgumentException(nameof(animationId));
+            }
+
+            var json = new StreamReader(ms, true).ReadToEnd();
+
+            //Parse the images from the lottie
+            var dom = JsonSerializer.Deserialize<LottieDOM.Lottie>(json);
+
+            foreach (var asset in dom.Assets)
+            {
+                if (asset.ImagePath.IsDataUri())
+                {
+                    //Extract data, filename
+
+                    //save in folder
+
+                    //replace entry to point at folder
+                }
+            }
+        }
+
+        internal void AddImage(string filename, byte[] data)
+        {
+
+        }
+
         //RemoveAnimation
         //RemoveImage
-        
+
         /// <summary>
         /// Returns the current dotlottie as a byte array.
         /// </summary>
@@ -117,29 +201,29 @@ namespace LottieFiles.IO
             var manifestEntry = archive.CreateEntry(Consts.Manifest);
             using (var stream = manifestEntry.Open())
             using (StreamWriter streamWriter = new StreamWriter(stream))
-            {                
+            {
                 var json = JsonSerializer.Serialize(Manifest, Options.JsonSerializerOptions);
-                streamWriter.Write(json);                                
+                streamWriter.Write(json);
             }
 
             //Images
-            foreach(var image in Images)
+            foreach (var image in Images)
             {
                 var imageEntry = archive.CreateEntry($"{Consts.Images}/{image.Key}");
                 using (var imageArchiveStream = imageEntry.Open())
                 {
-                    image.Value.CopyTo(imageArchiveStream);                    
+                    image.Value.CopyTo(imageArchiveStream);
                 }
             }
-            
+
             //Animations
-            foreach(var animation in Animations)
+            foreach (var animation in Animations)
             {
                 var animationEntryName = $"{Consts.Animations}/{animation.Key}";
                 var animationEntry = archive.CreateEntry(animationEntryName);
-                using(var animationArchiveStream = animationEntry.Open())
+                using (var animationArchiveStream = animationEntry.Open())
                 {
-                    animation.Value.CopyTo(animationArchiveStream);                    
+                    animation.Value.CopyTo(animationArchiveStream);
                 }
             }
 
@@ -167,9 +251,9 @@ namespace LottieFiles.IO
 
         private static void ExtractImages(DotLottie dotLottie, IEnumerable<ZipArchiveEntry> imageEntries)
         {
-            foreach(var imageEntry in imageEntries)
+            foreach (var imageEntry in imageEntries)
             {
-                using(var stream = imageEntry.Open())
+                using (var stream = imageEntry.Open())
                 {
                     var ms = new MemoryStream();
 
