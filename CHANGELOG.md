@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+# [1.2.0](https://github.com/LottieFiles/dotlottie-cs/compare/v1.1.0...v1.2.0) (2021-05-18)
+
+
+### Features
+
+* added some basic tests ([bab4e80](https://github.com/LottieFiles/dotlottie-cs/commit/bab4e80c85a5576da17f70957e07d4deb058aae7))
+* added support for image loading, dotlottie binary serlializing ([5b9b846](https://github.com/LottieFiles/dotlottie-cs/commit/5b9b846860a06d27444519832792541a3ab8b55d))
+* switched to platform independent http, add helper methods ([cbc49e0](https://github.com/LottieFiles/dotlottie-cs/commit/cbc49e0deb604180810aa76cff064b06ad6f9b18))
+
+# Changelog
+All notable changes to this project will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
+
+
 # [1.1.0](https://github.com/LottieFiles/dotlottie-cs/compare/v1.0.4...v1.1.0) (2021-03-17)
 
 
