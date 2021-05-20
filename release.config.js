@@ -58,7 +58,7 @@ module.exports = {
         cli: "dotnet",
         nupkgDir: "dist",
         projectRoot: 'LottieFiles.DotLottie',
-        source: "https://api.nuget.org/v3/index.json"
+        source: "https://nuget.pkg.github.com/LottieFiles/index.json"
       }
     ],
     [

@@ -36,7 +36,7 @@ jobs:
           dotnet-version: '3.1.x'
           source-url: https://nuget.pkg.github.com/LottieFiles/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.MS_NUGET_TOKEN }}
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Release
         run: yarn release
