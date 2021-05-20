@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), enforced with [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
+# [1.3.0](https://github.com/LottieFiles/dotlottie-cs/compare/v1.2.0...v1.3.0) (2021-05-20)
+
+
+### Features
+
+* added MIT license ([48dc076](https://github.com/LottieFiles/dotlottie-cs/commit/48dc076ffc92e1f7030435d0aef7110b425025fe))
+* push to ms-nuget ([ff10c78](https://github.com/LottieFiles/dotlottie-cs/commit/ff10c786138374b7e27c05820ea2342d5877d255))
+* revert switch to ms-nuget ([275b360](https://github.com/LottieFiles/dotlottie-cs/commit/275b3608dbfc362f6136be1e91227bbce378355e))
+
 # [1.2.0](https://github.com/LottieFiles/dotlottie-cs/compare/v1.1.0...v1.2.0) (2021-05-18)
 
 
