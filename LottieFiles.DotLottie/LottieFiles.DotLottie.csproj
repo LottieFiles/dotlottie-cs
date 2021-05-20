@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>LottieFiles.DotLottie</PackageId>
@@ -9,10 +9,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>LottieFiles.IO</RootNamespace>
+    <Authors>Alex Harper</Authors>
+    <Company>LottieFiles</Company>
+    <PackageLicenseFile>license.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="4.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="license.md" Pack="true" PackagePath="license.md"/>
+  </ItemGroup>
+  
 </Project>
