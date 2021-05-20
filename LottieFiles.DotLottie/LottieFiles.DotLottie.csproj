@@ -10,6 +10,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>LottieFiles.IO</RootNamespace>
     <Authors>Alex Harper</Authors>
+    <Description>A utility package for working with the dotLottie animation package format.</Description>
+    <Copyright>Design Barn</Copyright>
     <Company>LottieFiles</Company>
     <PackageLicenseFile>license.md</PackageLicenseFile>
   </PropertyGroup>
