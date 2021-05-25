@@ -49,3 +49,6 @@ jobs:
           GIT_AUTHOR_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
           GIT_COMMITTER_NAME: ${{ secrets.GIT_COMMITTER_NAME }}
           GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
+
+      - name: Push generated package to GitHub registry
+        run: dotnet nuget push ./dist/*.nupkg --skip-duplicate --no-symbols true --source 'https://api.nuget.org/v3/index.json' --api-key ${{ secrets.MS_NUGET_TOKEN }}
