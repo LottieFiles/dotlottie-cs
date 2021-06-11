@@ -4,11 +4,6 @@ namespace LottieFiles.IO
 {
     public sealed class Manifest
     {
-        internal Manifest()
-        {
-
-        }
-
         /// <summary>
         /// Name and version of the software that created the dotLottie
         /// </summary>
