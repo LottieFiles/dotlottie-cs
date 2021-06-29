@@ -2,17 +2,17 @@ name: Run Tests
 
 on:
   pull_request:
-    branches: [ main, beta ]
+    branches: [ main ]
 
 jobs:
   tests:
     name: Tests
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
+    # strategy:
+    #   matrix:
+    #     node-version: [12.x]
 
     steps:
       - name: Checkout
@@ -20,13 +20,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Install dependencies
-        run: yarn install
+          dotnet-version: '3.1.x'
+          source-url: https://nuget.pkg.github.com/LottieFiles/index.json
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test
+        run: dotnet test
